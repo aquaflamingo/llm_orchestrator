@@ -2,6 +2,7 @@
 
 require "spec_helper"
 
+# rubocop:disable Metrics/BlockLength
 RSpec.describe LlmOrchestrator::Chain do
   let(:memory) { LlmOrchestrator::Memory.new }
   let(:chain) { described_class.new(memory: memory) }
@@ -48,3 +49,4 @@ RSpec.describe LlmOrchestrator::Chain do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

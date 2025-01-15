@@ -2,6 +2,7 @@
 
 require "spec_helper"
 
+# rubocop:disable Metrics/BlockLength
 RSpec.describe LlmOrchestrator::LLM do
   describe LlmOrchestrator::OpenAI do
     let(:llm) { described_class.new }
@@ -47,3 +48,4 @@ RSpec.describe LlmOrchestrator::LLM do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

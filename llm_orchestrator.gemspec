@@ -9,7 +9,8 @@ Gem::Specification.new do |spec|
   spec.email = ["aquaflamingo@nitrousmail.com"]
 
   spec.summary = "A lightweight ruby framework for orchestrating operations via LLM APIs"
-  spec.description = "A simple and flexible framework for managing prompts and LLM interactions with OpenAI and Anthropic Claude"
+  spec.description = "A simple and flexible framework for managing prompts and LLM interactions " \
+                     "with OpenAI and Anthropic Claude"
   spec.homepage = "https://github.com/aquaflamingo/llm_orchestrator"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.1.0"

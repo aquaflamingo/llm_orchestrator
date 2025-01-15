@@ -5,6 +5,8 @@ require "anthropic"
 require "pry"
 
 module LlmOrchestrator
+  # Base class for LLM providers
+  # Defines the interface that all LLM implementations must follow
   class LLM
     def initialize(api_key: nil)
       @api_key = api_key
@@ -15,6 +17,8 @@ module LlmOrchestrator
     end
   end
 
+  # OpenAI LLM provider implementation
+  # Handles interactions with OpenAI's GPT models
   class OpenAI < LLM
     def initialize(api_key: nil)
       super
@@ -22,6 +26,7 @@ module LlmOrchestrator
       @client = ::OpenAI::Client.new(access_token: @api_key)
     end
 
+    # rubocop:disable Metrics/MethodLength
     def generate(prompt, context: nil, **options)
       messages = []
       messages << { role: "system", content: context } if context
@@ -37,8 +42,11 @@ module LlmOrchestrator
 
       response.dig("choices", 0, "message", "content")
     end
+    # rubocop:enable Metrics/MethodLength
   end
 
+  # Anthropic LLM provider implementation
+  # Handles interactions with Anthropic's Claude models
   class Anthropic < LLM
     def initialize(api_key: nil)
       super
@@ -46,6 +54,7 @@ module LlmOrchestrator
       @client = ::Anthropic::Client.new(access_token: @api_key)
     end
 
+    # rubocop:disable Metrics/MethodLength
     def generate(prompt, context: nil, **options)
       response = @client.messages(
         parameters: {
@@ -61,5 +70,6 @@ module LlmOrchestrator
 
       response.content.first.text
     end
+    # rubocop:enable Metrics/MethodLength
   end
 end

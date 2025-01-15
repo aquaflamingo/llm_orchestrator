@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module LlmOrchestrator
+  # Memory manages conversation history and context for LLM interactions
+  # Handles message storage, token limits, and context management
   class Memory
     attr_reader :messages
 

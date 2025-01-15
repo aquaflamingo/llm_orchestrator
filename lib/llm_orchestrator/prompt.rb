@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module LlmOrchestrator
+  # Prompt handles template-based prompt generation for LLM interactions
+  # Supports variable interpolation and template management
   class Prompt
     attr_reader :template, :variables
 
