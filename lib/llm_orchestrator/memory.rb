@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module LlmOrchestrator
   class Memory
     attr_reader :messages
 
     def initialize
       @messages = []
-      @max_tokens = 2000  # Adjust based on your needs
+      @max_tokens = 2000 # Adjust based on your needs
     end
 
     def add_message(role, content)
@@ -30,7 +32,7 @@ module LlmOrchestrator
 
     def trim_messages
       while exceeds_token_limit? && @messages.size > 1
-        @messages.shift  # Remove oldest message
+        @messages.shift # Remove oldest message
       end
     end
   end

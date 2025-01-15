@@ -1,12 +1,14 @@
-require 'llm_orchestrator'
-require 'vcr'
-require 'webmock/rspec'
+# frozen_string_literal: true
+
+require "llm_orchestrator"
+require "vcr"
+require "webmock/rspec"
 
 VCR.configure do |config|
   config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
   config.hook_into :webmock
-  config.filter_sensitive_data('<OPENAI_API_KEY>') { ENV['OPENAI_API_KEY'] }
-  config.filter_sensitive_data('<CLAUDE_API_KEY>') { ENV['CLAUDE_API_KEY'] }
+  config.filter_sensitive_data("<OPENAI_API_KEY>") { ENV["OPENAI_API_KEY"] }
+  config.filter_sensitive_data("<CLAUDE_API_KEY>") { ENV["CLAUDE_API_KEY"] }
 end
 
 RSpec.configure do |config|
@@ -22,6 +24,6 @@ RSpec.configure do |config|
 end
 
 LlmOrchestrator.configure do |config|
-  config.openai_api_key = ENV['OPENAI_API_KEY']
-  config.claude_api_key = ENV['CLAUDE_API_KEY']
+  config.openai_api_key = ENV["OPENAI_API_KEY"]
+  config.claude_api_key = ENV["CLAUDE_API_KEY"]
 end

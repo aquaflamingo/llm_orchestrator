@@ -8,19 +8,19 @@ require_relative "llm_orchestrator/memory"
 
 module LlmOrchestrator
   class Error < StandardError; end
-  
+
   class << self
     attr_accessor :configuration
-    
+
     def configure
       self.configuration ||= Configuration.new
       yield(configuration) if block_given?
     end
   end
-  
+
   class Configuration
     attr_accessor :default_llm_provider, :openai_api_key, :claude_api_key
-    
+
     def initialize
       @default_llm_provider = :openai
       @openai_api_key = nil

@@ -18,12 +18,12 @@ Gem::Specification.new do |spec|
   spec.metadata["source_code_uri"] = spec.homepage
   spec.metadata["changelog_uri"] = "#{spec.homepage}/blob/main/CHANGELOG.md"
 
-  spec.files = Dir.glob("{lib}/**/*") + %w(README.md LICENSE.txt CHANGELOG.md)
+  spec.files = Dir.glob("{lib}/**/*") + %w[README.md LICENSE.txt CHANGELOG.md]
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "ruby-openai", "~> 6.0"
   spec.add_dependency "anthropic", "~> 0.3.2"
-  
+  spec.add_dependency "ruby-openai", "~> 6.0"
+
   spec.add_development_dependency "rspec", "~> 3.12"
   spec.add_development_dependency "vcr", "~> 6.1"
   spec.add_development_dependency "webmock", "~> 3.18"

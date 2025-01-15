@@ -1,18 +1,20 @@
-require 'openai'
-require 'anthropic'
-require 'pry'
+# frozen_string_literal: true
+
+require "openai"
+require "anthropic"
+require "pry"
 
 module LlmOrchestrator
   class LLM
     def initialize(api_key: nil)
       @api_key = api_key
     end
-    
+
     def generate(prompt, context: nil, **options)
       raise NotImplementedError, "Subclasses must implement generate method"
     end
   end
-  
+
   class OpenAI < LLM
     def initialize(api_key: nil)
       super
@@ -22,18 +24,18 @@ module LlmOrchestrator
 
     def generate(prompt, context: nil, **options)
       messages = []
-      messages << { role: 'system', content: context } if context
-      messages << { role: 'user', content: prompt }
-      
+      messages << { role: "system", content: context } if context
+      messages << { role: "user", content: prompt }
+
       response = @client.chat(
         parameters: {
-          model: options[:model] || 'gpt-3.5-turbo',
+          model: options[:model] || "gpt-3.5-turbo",
           messages: messages,
           temperature: options[:temperature] || 0.7
         }
       )
-      
-      response.dig('choices', 0, 'message', 'content')
+
+      response.dig("choices", 0, "message", "content")
     end
   end
 
@@ -47,16 +49,16 @@ module LlmOrchestrator
     def generate(prompt, context: nil, **options)
       response = @client.messages(
         parameters: {
-          model: options[:model] || 'claude-3-opus-20240229',
+          model: options[:model] || "claude-3-opus-20240229",
           system: context,
           messages: [
-            { role: 'user', content: prompt }
+            { role: "user", content: prompt }
           ],
           temperature: options[:temperature] || 0.7,
           max_tokens: options[:max_tokens] || 1000
         }
       )
-      
+
       response.content.first.text
     end
   end
