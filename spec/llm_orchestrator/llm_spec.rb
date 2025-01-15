@@ -1,14 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe LlmOrchestrator::LLM do
-  before do
-    LlmOrchestrator.configure do |config|
-      config.openai_api_key = ENV['OPENAI_API_KEY']
-      config.claude_api_key = ENV['CLAUDE_API_KEY']
-    end
-  end
-
-  describe LlmOrchestrator::OpenAILLM do
+  describe LlmOrchestrator::OpenAI do
     let(:llm) { described_class.new }
 
     describe '#generate' do
@@ -30,7 +23,7 @@ RSpec.describe LlmOrchestrator::LLM do
     end
   end
 
-  describe LlmOrchestrator::ClaudeLLM do
+  describe LlmOrchestrator::Anthropic do
     let(:llm) { described_class.new }
 
     describe '#generate' do

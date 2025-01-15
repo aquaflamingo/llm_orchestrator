@@ -50,11 +50,11 @@ formatted = prompt.format(
 
 ```ruby
 # Using OpenAI
-openai = LlmOrchestrator::OpenAILLM.new
+openai = LlmOrchestrator::OpenAI.new
 response = openai.generate("What is 2+2?", model: "gpt-3.5-turbo")
 
 # Using Claude
-claude = LlmOrchestrator::ClaudeLLM.new
+claude = LlmOrchestrator::Anthropic.new
 response = claude.generate("What is 2+2?", model: "claude-3-opus-20240229")
 ```
 
@@ -67,7 +67,7 @@ chain = LlmOrchestrator::Chain.new(memory: memory)
 
 # Add processing steps
 chain.add_step do |input, memory|
-  llm = LlmOrchestrator::ClaudeLLM.new
+  llm = LlmOrchestrator::Anthropic.new
   llm.generate(input, context: memory.context_string)
 end
 

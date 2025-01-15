@@ -1,10 +1,11 @@
 require 'openai'
 require 'anthropic'
+require 'pry'
 
 module LlmOrchestrator
   class LLM
     def initialize(api_key: nil)
-      @api_key = api_key || LlmOrchestrator.configuration.api_key
+      @api_key = api_key
     end
     
     def generate(prompt, context: nil, **options)
@@ -12,10 +13,11 @@ module LlmOrchestrator
     end
   end
   
-  class OpenAILLM < LLM
+  class OpenAI < LLM
     def initialize(api_key: nil)
       super
-      @client = OpenAI::Client.new(access_token: @api_key)
+      @api_key ||= LlmOrchestrator.configuration.openai_api_key
+      @client = ::OpenAI::Client.new(access_token: @api_key)
     end
 
     def generate(prompt, context: nil, **options)
@@ -35,24 +37,25 @@ module LlmOrchestrator
     end
   end
 
-  class ClaudeLLM < LLM
+  class Anthropic < LLM
     def initialize(api_key: nil)
       super
-      @client = Anthropic::Client.new(api_key: @api_key)
+      @api_key ||= LlmOrchestrator.configuration.claude_api_key
+      @client = ::Anthropic::Client.new(access_token: @api_key)
     end
 
     def generate(prompt, context: nil, **options)
-      system_prompt = context ? "#{context}\n\n" : ""
-      
-      response = @client.messages.create(
-        model: options[:model] || 'claude-3-opus-20240229',
-        messages: [
-          {
-            role: 'user',
-            content: system_prompt + prompt
-          }
-        ],
-        temperature: options[:temperature] || 0.7
+      binding.pry
+      response = @client.messages(
+        parameters: {
+          model: options[:model] || 'claude-3-opus-20240229',
+          system: context,
+          messages: [
+            { role: 'user', content: prompt }
+          ],
+          temperature: options[:temperature] || 0.7,
+          max_tokens: options[:max_tokens] || 1000
+        }
       )
       
       response.content.first.text

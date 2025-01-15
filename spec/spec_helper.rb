@@ -20,3 +20,8 @@ RSpec.configure do |config|
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
 end
+
+LlmOrchestrator.configure do |config|
+  config.openai_api_key = ENV['OPENAI_API_KEY']
+  config.claude_api_key = ENV['CLAUDE_API_KEY']
+end

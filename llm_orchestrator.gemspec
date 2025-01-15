@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "lib/llm_orchestrator/version"
-
-Gem::Specification.new do |spec|
-  spec.name = "llm_orchestrator"
+Gem::Specification.new do |spec| spec.name = "llm_orchestrator"
   spec.version = LlmOrchestrator::VERSION
   spec.authors = ["TODO: Write your name"]
   spec.email = ["TODO: Write your email address"]
@@ -40,7 +38,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "ruby-openai", "~> 6.0"
-  spec.add_dependency "anthropic", "~> 0.1.0"
+  spec.add_dependency "anthropic", "~> 0.3.2"
   
   spec.add_development_dependency "rspec", "~> 3.12"
   spec.add_development_dependency "vcr", "~> 6.1"

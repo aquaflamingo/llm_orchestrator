@@ -26,14 +26,5 @@ module LlmOrchestrator
       @openai_api_key = nil
       @claude_api_key = nil
     end
-
-    def api_key
-      case default_llm_provider
-      when :openai
-        openai_api_key
-      when :claude
-        claude_api_key
-      end
-    end
   end
 end
