@@ -45,7 +45,6 @@ module LlmOrchestrator
     end
 
     def generate(prompt, context: nil, **options)
-      binding.pry
       response = @client.messages(
         parameters: {
           model: options[:model] || 'claude-3-opus-20240229',
