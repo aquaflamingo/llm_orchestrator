@@ -23,12 +23,44 @@ module LlmOrchestrator
   # Configuration class for LlmOrchestrator
   # Manages global settings like API keys and default LLM provider
   class Configuration
-    attr_accessor :default_llm_provider, :openai_api_key, :claude_api_key
-
+    attr_accessor :default_llm_provider
+    
     def initialize
       @default_llm_provider = :openai
-      @openai_api_key = nil
-      @claude_api_key = nil
+      @openai = OpenAIConfig.new
+      @claude = ClaudeConfig.new
+    end
+
+    def openai
+      @openai ||= OpenAIConfig.new
+    end
+
+    def claude
+      @claude ||= ClaudeConfig.new
+    end
+  end
+
+  # Configuration class for OpenAI-specific settings
+  class OpenAIConfig
+    attr_accessor :api_key, :model, :temperature, :max_tokens
+
+    def initialize
+      @api_key = nil
+      @model = "gpt-3.5-turbo"
+      @temperature = 0.7
+      @max_tokens = 1000
+    end
+  end
+
+  # Configuration class for Claude-specific settings
+  class ClaudeConfig
+    attr_accessor :api_key, :model, :temperature, :max_tokens
+
+    def initialize
+      @api_key = nil
+      @model = "claude-3-opus-20240229"
+      @temperature = 0.7
+      @max_tokens = 1000
     end
   end
 end

@@ -1,0 +1,55 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.anthropic.com/v1/messages
+    body:
+      encoding: UTF-8
+      string: '{"model":"claude-3-opus-20240229","system":"We were discussing AI","messages":[{"role":"user","content":"Continue
+        the conversation"}],"temperature":0.7,"max_tokens":1000}'
+    headers:
+      X-Api-Key:
+      - test-claude-key
+      Anthropic-Version:
+      - '2023-06-01'
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Date:
+      - Fri, 24 Jan 2025 02:40:54 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '86'
+      Connection:
+      - keep-alive
+      X-Should-Retry:
+      - 'false'
+      Request-Id:
+      - req_01QNcXTMZ8sjoJpmmamA9wTV
+      Via:
+      - 1.1 google
+      Cf-Cache-Status:
+      - DYNAMIC
+      X-Robots-Tag:
+      - none
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 906ca953c9bcb406-YYZ
+    body:
+      encoding: UTF-8
+      string: '{"type":"error","error":{"type":"authentication_error","message":"invalid
+        x-api-key"}}'
+  recorded_at: Fri, 24 Jan 2025 02:40:54 GMT
+recorded_with: VCR 6.3.1
