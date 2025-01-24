@@ -9,7 +9,7 @@ RSpec.describe LlmOrchestrator::Chain do
 
   describe "#add_step" do
     it "adds a step to the chain" do
-      chain.add_step(&:upcase)
+      chain.add_step { |t| t.upcase }
       expect(chain.run("hello")).to eq("HELLO")
     end
 
@@ -21,7 +21,7 @@ RSpec.describe LlmOrchestrator::Chain do
   describe "#run" do
     it "executes steps in sequence" do
       chain
-        .add_step(&:upcase)
+        .add_step { |input| input.upcase }
         .add_step { |input| "#{input}!" }
 
       expect(chain.run("hello")).to eq("HELLO!")

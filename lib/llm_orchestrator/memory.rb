@@ -6,9 +6,10 @@ module LlmOrchestrator
   class Memory
     attr_reader :messages
 
-    def initialize
+    # Input prompts of 4-6K are ideal
+    def initialize(max_tokens: 2000)
       @messages = []
-      @max_tokens = 2000 # Adjust based on your needs
+      @max_tokens = max_tokens # Adjust based on your needs
     end
 
     def add_message(role, content)

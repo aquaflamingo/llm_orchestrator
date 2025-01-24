@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
+require "bundler/setup"
 require "llm_orchestrator"
 require "vcr"
-require "webmock/rspec"
+require "pry"
 
 VCR.configure do |config|
   config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
@@ -12,18 +13,28 @@ VCR.configure do |config|
 end
 
 RSpec.configure do |config|
-  config.expect_with :rspec do |expectations|
-    expectations.include_chain_clauses_in_custom_matcher_descriptions = true
+  # Enable flags like --only-failures and --next-failure
+  config.example_status_persistence_file_path = ".rspec_status"
+
+  # Disable RSpec exposing methods globally on `Module` and `main`
+  config.disable_monkey_patching!
+
+  config.expect_with :rspec do |c|
+    c.syntax = :expect
   end
 
-  config.mock_with :rspec do |mocks|
-    mocks.verify_partial_doubles = true
+  # Configure LlmOrchestrator with test credentials
+  LlmOrchestrator.configure do |config|
+    # OpenAI configuration
+    config.openai.api_key = ENV["OPENAI_API_KEY"]
+    config.openai.model = "gpt-3.5-turbo"
+    config.openai.temperature = 0.7
+    config.openai.max_tokens = 1000
+
+    # Claude configuration
+    config.claude.api_key = ENV["CLAUDE_API_KEY"]
+    config.claude.model = "claude-3-opus-20240229"
+    config.claude.temperature = 0.7
+    config.claude.max_tokens = 1000
   end
-
-  config.shared_context_metadata_behavior = :apply_to_host_groups
-end
-
-LlmOrchestrator.configure do |config|
-  config.openai_api_key = ENV["OPENAI_API_KEY"]
-  config.claude_api_key = ENV["CLAUDE_API_KEY"]
 end
