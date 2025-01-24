@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    llm_orchestrator (0.1.0)
+    llm_orchestrator (0.2.0)
       anthropic (~> 0.3.2)
       ruby-openai (~> 6.0)
 

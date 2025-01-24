@@ -9,8 +9,11 @@ RuboCop::RakeTask.new
 
 desc "Build and publish the gem"
 task :publish do
+  require_relative "lib/llm_orchestrator/version"
+  version = LlmOrchestrator::VERSION
   system "gem build *.gemspec"
-  system "gem push *.gem"
+  gem_file = "llm_orchestrator-#{version}.gem"
+  system "gem push #{gem_file}"
 end
 
 task :default => :validate
